@@ -1,11 +1,11 @@
 import { Container } from './styles';
 import Link from 'next/link';
 
-export default function Home() {
+export default function Details() {
   return (
     <Container>
-      <div>Home Page</div>
-      <Link href={'/details'}>Go To Details</Link>
+      <div>Details Page!</div>
+      <Link href={'/'}>Go To Home</Link>
     </Container>
   );
 }
