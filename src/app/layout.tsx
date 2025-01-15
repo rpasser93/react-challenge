@@ -1,5 +1,7 @@
 import StyledComponentsRegistry from '@/lib/registry';
+import ReactQueryProvider from '@/utils/providers/ReactQueryProvider';
 import './globals.css';
+import { NavBar } from '@/components/NavBar';
 
 export default function RootLayout({
   children,
@@ -9,7 +11,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <ReactQueryProvider>
+          <StyledComponentsRegistry>
+            <NavBar />
+            {children}
+          </StyledComponentsRegistry>
+        </ReactQueryProvider>
       </body>
     </html>
   );

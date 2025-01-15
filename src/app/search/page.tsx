@@ -1,21 +1,24 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { Container, MovieCard } from './styles';
-import { getPopularMovies } from '@/api/getPopularMovies';
 import Link from 'next/link';
 import { MovieListResult } from '@/models/movieList';
-import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { getMoviesByTitle } from '@/api/getMoviesByTitle';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 
-export default function HomePage() {
+export default function SearchPage() {
+  const [searchedMovie, setSearchedMovie] = useState('batman');
+
   const { data, isLoading, isError } = useQuery({
-    queryFn: async () => await getPopularMovies(),
-    queryKey: ['popularMovies'],
+    queryFn: async () => await getMoviesByTitle(searchedMovie),
+    queryKey: ['searchedMovies'],
   });
 
-  if (!isLoading) return <LoadingSpinner />;
+  if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error retrieving movies.</div>;
-  if (!data) return <div>No movies retrieved.</div>;
+  if (!data) return <div>No movies matching your search were found.</div>;
 
   const renderMovies = () => {
     return data.map((movie: MovieListResult, index) => {
@@ -35,7 +38,7 @@ export default function HomePage() {
 
   return (
     <Container>
-      <div>MOST POPULAR MOVIES</div>
+      <div>RESULTS</div>
       {renderMovies()}
     </Container>
   );
