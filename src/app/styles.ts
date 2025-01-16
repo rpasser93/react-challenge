@@ -7,10 +7,11 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 15px;
   align-items: center;
+  padding: 0px 30px;
 `;
 
 export const MovieCard = styled.div`
-  border: solid black;
+  border: solid thin var(--primary-yellow);
   padding: 5px;
   width: max-content;
   cursor: pointer;

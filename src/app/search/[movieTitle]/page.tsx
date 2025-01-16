@@ -4,15 +4,18 @@ import { useQuery } from '@tanstack/react-query';
 import { Container, MovieCard } from './styles';
 import Link from 'next/link';
 import { MovieListResult } from '@/models/movieList';
-import { useState } from 'react';
 import { getMoviesByTitle } from '@/api/getMoviesByTitle';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { usePathname } from 'next/navigation';
 
 export default function SearchPage() {
-  const [searchedMovie, setSearchedMovie] = useState('batman');
+  const pathName: string = usePathname();
+  const movieTitle: string = pathName
+    .replace('/search/', '')
+    .replaceAll('%20', ' ');
 
   const { data, isLoading, isError } = useQuery({
-    queryFn: async () => await getMoviesByTitle(searchedMovie),
+    queryFn: async () => await getMoviesByTitle(movieTitle),
     queryKey: ['searchedMovies'],
   });
 

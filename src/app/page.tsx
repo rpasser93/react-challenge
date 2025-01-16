@@ -13,7 +13,7 @@ export default function HomePage() {
     queryKey: ['popularMovies'],
   });
 
-  if (!isLoading) return <LoadingSpinner />;
+  if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error retrieving movies.</div>;
   if (!data) return <div>No movies retrieved.</div>;
 

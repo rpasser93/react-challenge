@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { Container } from './styles';
 import { useQuery } from '@tanstack/react-query';
 import { getMovieById } from '@/api/getMovieById';
@@ -69,10 +68,5 @@ export default function MoviePage() {
     );
   };
 
-  return (
-    <Container>
-      {renderMovieDetails()}
-      <Link href={'/'}>Go To Home</Link>
-    </Container>
-  );
+  return <Container>{renderMovieDetails()}</Container>;
 }
