@@ -1,10 +1,10 @@
 import { ImSpinner8 } from 'react-icons/im';
-import { Container } from './styles';
+import { LoadingSpinnerContainer } from './styles';
 
 export const LoadingSpinner = () => {
   return (
-    <Container>
+    <LoadingSpinnerContainer>
       <ImSpinner8 size={50} color='white' />
-    </Container>
+    </LoadingSpinnerContainer>
   );
 };

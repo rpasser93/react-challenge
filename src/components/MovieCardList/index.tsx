@@ -1,9 +1,13 @@
 'use client';
 
-import Link from 'next/link';
 import { MovieListResult } from '@/models/movieList';
 import { FC } from 'react';
-import { Container, MovieCard, Poster, DetailsRow } from './styles';
+import {
+  MovieCardListContainer,
+  MovieCard,
+  Poster,
+  DetailsRow,
+} from './styles';
 import { getRoundedRating } from '@/helpers/getRoundedRating';
 import { getReleaseYear } from '@/helpers/getReleaseYear';
 import { formatNumber } from '@/helpers/formatNumber';
@@ -20,7 +24,7 @@ export const MovieCardList: FC<Props> = ({ movieListData }) => {
   const router = useRouter();
 
   const handleMovieClick = (id: number) => {
-    router.push(`movie/${id}`);
+    router.push(`/movie/${id}`);
   };
 
   const renderMovies = () => {
@@ -33,7 +37,7 @@ export const MovieCardList: FC<Props> = ({ movieListData }) => {
       return (
         <MovieCard key={index}>
           <Poster onClick={() => handleMovieClick(movie.id)}>
-            <Image src={posterImageUrl} width={198} height={273} alt='poster' />
+            <Image src={posterImageUrl} fill alt='poster' />
           </Poster>
           <div
             className='movie-title'
@@ -52,5 +56,5 @@ export const MovieCardList: FC<Props> = ({ movieListData }) => {
     });
   };
 
-  return <Container>{renderMovies()}</Container>;
+  return <MovieCardListContainer>{renderMovies()}</MovieCardListContainer>;
 };

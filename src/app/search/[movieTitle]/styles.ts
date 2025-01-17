@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const SearchPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;

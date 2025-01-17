@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const MovieCardListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 20px;
@@ -35,7 +35,7 @@ export const MovieCard = styled.div`
     cursor: pointer;
 
     &:hover {
-      transform: scale(1.025);
+      color: var(--secondary-blue);
     }
   }
 `;
@@ -43,12 +43,13 @@ export const MovieCard = styled.div`
 export const Poster = styled.div`
   width: 200px;
   height: 275px;
-  cursor: pointer;
+  position: relative;
   border: solid thin white;
   border-radius: 12px;
+  cursor: pointer;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 
   > *:first-child {

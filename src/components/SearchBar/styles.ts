@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const SearchBarContainer = styled.div`
   max-width: 500px;
   width: 100%;
 

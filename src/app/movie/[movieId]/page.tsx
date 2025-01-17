@@ -1,72 +1,66 @@
 'use client';
 
-import { Container } from './styles';
+import {
+  OverviewBox,
+  MoviePageContainer,
+  Poster,
+  TopSection,
+  Detail,
+} from './styles';
 import { useQuery } from '@tanstack/react-query';
 import { getMovieById } from '@/api/getMovieById';
 import { usePathname } from 'next/navigation';
 import { Genre, ProductionCompany } from '@/models/movie';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { getPosterImageUrl } from '@/helpers/getPosterImageUrl';
+import Image from 'next/image';
+import { getRoundedRating } from '@/helpers/getRoundedRating';
+import { getReleaseYear } from '@/helpers/getReleaseYear';
+import { formatNumber } from '@/helpers/formatNumber';
+import { FaStar } from 'react-icons/fa';
+import { CastBox } from '@/components/CastBox';
+import { ProductionBox } from '@/components/ProductionBox';
 
 export default function MoviePage() {
   const pathName: string = usePathname();
   const movieId: string = pathName.replace('/movie/', '');
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isFetching, isError } = useQuery({
     queryFn: async () => await getMovieById(movieId),
     queryKey: ['movie'],
   });
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading || isFetching) return <LoadingSpinner />;
   if (isError) return <div>Error retrieving movie data.</div>;
-  if (!data) return <div>No movie data retrieved.</div>;
+  if (!data) return null;
 
-  const renderGenres = () => {
-    return data.genres.map((genre: Genre, index) => {
-      return <div key={index}>{genre.name}</div>;
-    });
-  };
+  const posterImageUrl: string = getPosterImageUrl(data.poster_path);
+  const backdropImageUrl: string = getPosterImageUrl(data.backdrop_path);
+  const roundedRating: string = getRoundedRating(data.vote_average);
+  const releaseYear: string = getReleaseYear(data.release_date);
+  const formattedVoteCount: string = formatNumber(data.vote_count);
 
-  const renderProductionCompanies = () => {
-    return data.production_companies.map(
-      (company: ProductionCompany, index) => {
-        return (
-          <div key={index}>
-            <div>{company.name}</div>
-            <div>{company.logo_path}</div>
-          </div>
-        );
-      }
-    );
-  };
-
-  const renderCredits = () => {
-    return (
-      <div>
-        <div>{`${data.credits.cast[0].name} - ${data.credits.cast[0].character} - ${data.credits.cast[0].profile_path}`}</div>
-        <div>{`${data.credits.crew[0].name} - ${data.credits.crew[0].job} - ${data.credits.cast[0].profile_path}`}</div>
-      </div>
-    );
-  };
-
-  const renderMovieDetails = () => {
-    return (
-      <div>
-        <div>{data.title}</div>
-        <div>{data.poster_path}</div>
-        <div>{data.backdrop_path}</div>
-        <div>{data.budget}</div>
-        {renderCredits()}
-        <div>{data.overview}</div>
-        {renderProductionCompanies()}
-        {renderGenres()}
-        <div>{data.release_date}</div>
-        <div>{data.revenue}</div>
-        <div>{data.runtime}</div>
-        <div>{data.vote_average}</div>
-        <div>{data.vote_count}</div>
-      </div>
-    );
-  };
-
-  return <Container>{renderMovieDetails()}</Container>;
+  return (
+    <MoviePageContainer>
+      <TopSection url={backdropImageUrl}>
+        <Poster>
+          <Image src={posterImageUrl} fill alt='poster' />
+        </Poster>
+        <OverviewBox>
+          <Detail>
+            {data.title} <span>({releaseYear})</span>
+          </Detail>
+          <Detail className='description'>{data.overview}</Detail>
+          <Detail>{data.runtime} minutes</Detail>
+          <Detail className='rating-row'>
+            <FaStar color='var(--primary-yellow)' size={15} />
+            <div className='rating'>{roundedRating}</div>
+            <div className='vote-count'>({formattedVoteCount})</div>
+          </Detail>
+        </OverviewBox>
+      </TopSection>
+      <CastBox />
+      <ProductionBox />
+    </MoviePageContainer>
+  );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { Container } from './styles';
+import { SearchPageContainer } from './styles';
 import { getMoviesByTitle } from '@/api/getMoviesByTitle';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { usePathname } from 'next/navigation';
@@ -23,12 +23,12 @@ export default function SearchPage() {
   if (!data) return null;
 
   return (
-    <Container>
+    <SearchPageContainer>
       <div className='header'>
         {`${data.length > 0 ? 'Top results' : 'No results found'} for`}{' '}
         <span>{`${movieTitle}`}</span>:
       </div>
       <MovieCardList movieListData={data} />
-    </Container>
+    </SearchPageContainer>
   );
 }

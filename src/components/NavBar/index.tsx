@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import { Container, NavItem } from './styles';
+import { NavBarContainer, NavItem } from './styles';
 import Image from 'next/image';
 import { SearchBar } from '../SearchBar';
 
 export const NavBar = () => {
   return (
-    <Container>
+    <NavBarContainer>
       <Link href='/'>
         <NavItem>
           <Image
@@ -21,6 +21,6 @@ export const NavBar = () => {
       <Link href='/credits'>
         <NavItem>Credits</NavItem>
       </Link>
-    </Container>
+    </NavBarContainer>
   );
 };

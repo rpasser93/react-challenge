@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const PopularMoviesPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0px 30px 60px 30px;

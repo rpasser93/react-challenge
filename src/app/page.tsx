@@ -1,6 +1,6 @@
 'use client';
 
-import { Container } from './styles';
+import { PopularMoviesPageContainer } from './styles';
 import { getPopularMovies } from '@/api/getPopularMovies';
 import { useQuery } from '@tanstack/react-query';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
@@ -14,15 +14,15 @@ export default function HomePage() {
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error retrieving movies.</div>;
-  if (!data) return <div>No movies retrieved.</div>;
+  if (!data) return null;
 
   return (
-    <Container>
-      <div className='header'>What&#39;s Popular</div>
+    <PopularMoviesPageContainer>
+      <div className='header'>Today&#39;s Top 20</div>
       <div className='subheader'>
-        The hottest movies being watched right now.
+        The most popular movies being watched right now.
       </div>
       <MovieCardList movieListData={data} />
-    </Container>
+    </PopularMoviesPageContainer>
   );
 }

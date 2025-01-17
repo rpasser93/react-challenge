@@ -1,7 +1,7 @@
 'use client';
 
 import { FormEvent, useEffect, useState } from 'react';
-import { Container } from './styles';
+import { SearchBarContainer } from './styles';
 import { useRouter } from 'next/navigation';
 import { FaSearch } from 'react-icons/fa';
 
@@ -30,7 +30,7 @@ export const SearchBar = () => {
   };
 
   return (
-    <Container>
+    <SearchBarContainer>
       <form onSubmit={handleSubmit}>
         <input
           name='movieSearchInput'
@@ -42,6 +42,6 @@ export const SearchBar = () => {
           <FaSearch size={15} />
         </button>
       </form>
-    </Container>
+    </SearchBarContainer>
   );
 };
