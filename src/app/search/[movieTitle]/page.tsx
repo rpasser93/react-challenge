@@ -25,8 +25,8 @@ export default function SearchPage() {
   return (
     <SearchPageContainer>
       <div className='header'>
-        {`${data.length > 0 ? 'Top results' : 'No results found'} for`}{' '}
-        <span>{`${movieTitle}`}</span>:
+        {`${data.length > 0 ? 'Top results' : 'No results found'} for `}
+        <span>{movieTitle}</span>:
       </div>
       <MovieCardList movieListData={data} />
     </SearchPageContainer>

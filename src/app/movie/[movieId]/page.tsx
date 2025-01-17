@@ -10,7 +10,6 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { getMovieById } from '@/api/getMovieById';
 import { usePathname } from 'next/navigation';
-import { Genre, ProductionCompany } from '@/models/movie';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { getPosterImageUrl } from '@/helpers/getPosterImageUrl';
 import Image from 'next/image';
@@ -19,7 +18,8 @@ import { getReleaseYear } from '@/helpers/getReleaseYear';
 import { formatNumber } from '@/helpers/formatNumber';
 import { FaStar } from 'react-icons/fa';
 import { CastBox } from '@/components/CastBox';
-import { ProductionBox } from '@/components/ProductionBox';
+import { getWriterNames } from '@/helpers/getWriterNames';
+import { getDirectorNames } from '@/helpers/getDirectorNames';
 
 export default function MoviePage() {
   const pathName: string = usePathname();
@@ -40,27 +40,62 @@ export default function MoviePage() {
   const releaseYear: string = getReleaseYear(data.release_date);
   const formattedVoteCount: string = formatNumber(data.vote_count);
 
+  const renderDirectorCredits = () => {
+    const directors: string = getDirectorNames(data.credits.crew);
+    const splitDirectors: string[] = directors.split(',');
+    const directorText: string =
+      splitDirectors.length > 1 ? 'Directors: ' : 'Director: ';
+
+    return (
+      <div className='directors-row'>
+        <span>{directorText}</span>
+        {directors}
+      </div>
+    );
+  };
+
+  const renderWriterCredits = () => {
+    const writers: string = getWriterNames(data.credits.crew);
+    const splitWriters: string[] = writers.split(',');
+    const writerText: string =
+      splitWriters.length > 1 ? 'Writers: ' : 'Writer: ';
+
+    return (
+      <div className='writers-row'>
+        <span>{writerText}</span>
+        {writers}
+      </div>
+    );
+  };
+
   return (
     <MoviePageContainer>
-      <TopSection url={backdropImageUrl}>
+      <TopSection url={backdropImageUrl ?? ''}>
         <Poster>
           <Image src={posterImageUrl} fill alt='poster' />
         </Poster>
         <OverviewBox>
-          <Detail>
+          <Detail className='movie-title'>
             {data.title} <span>({releaseYear})</span>
           </Detail>
+          <div className='runtime-rating-row'>
+            <Detail>{data.runtime} minutes</Detail>
+            <Detail className='rating-row'>
+              <FaStar color='var(--primary-yellow)' size={15} />
+              <div className='rating'>{roundedRating}</div>
+              <div className='vote-count'>
+                <span>({formattedVoteCount})</span>
+              </div>
+            </Detail>
+          </div>
           <Detail className='description'>{data.overview}</Detail>
-          <Detail>{data.runtime} minutes</Detail>
-          <Detail className='rating-row'>
-            <FaStar color='var(--primary-yellow)' size={15} />
-            <div className='rating'>{roundedRating}</div>
-            <div className='vote-count'>({formattedVoteCount})</div>
+          <Detail className='crew'>
+            {renderDirectorCredits()}
+            {renderWriterCredits()}
           </Detail>
         </OverviewBox>
       </TopSection>
       <CastBox />
-      <ProductionBox />
     </MoviePageContainer>
   );
 }

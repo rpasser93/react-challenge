@@ -49,7 +49,7 @@ export const MovieCardList: FC<Props> = ({ movieListData }) => {
             <div className='release-year'>{releaseYear}</div>
             <FaStar color='var(--primary-yellow)' size={15} />
             <div className='rating'>{roundedRating}</div>
-            <div className='vote-count'>{`(${formattedVoteCount})`}</div>
+            <div className='vote-count'>({formattedVoteCount})</div>
           </DetailsRow>
         </MovieCard>
       );

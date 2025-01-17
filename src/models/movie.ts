@@ -10,17 +10,11 @@ export interface Movie {
   vote_average: number;
   vote_count: number;
   genres: Genre[];
-  production_companies: ProductionCompany[];
   credits: Credits;
 }
 
 export interface Genre {
   name: string;
-}
-
-export interface ProductionCompany {
-  name: string;
-  logo_path: string;
 }
 
 interface Credits {
@@ -34,8 +28,7 @@ interface CastMember {
   profile_path: string;
 }
 
-interface CrewMember {
+export interface CrewMember {
   name: string;
   job: string;
-  profile_path: string;
 }
