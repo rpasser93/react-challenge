@@ -7,12 +7,15 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 15px;
   align-items: center;
-  padding: 0px 30px;
-`;
+  padding: 0px 30px 60px 30px;
 
-export const MovieCard = styled.div`
-  border: solid thin var(--primary-yellow);
-  padding: 5px;
-  width: max-content;
-  cursor: pointer;
+  .header {
+    font-size: 20px;
+    margin-bottom: 30px;
+    span {
+      font-family: var(--font-syne);
+      font-weight: 700;
+      color: var(--secondary-blue);
+    }
+  }
 `;

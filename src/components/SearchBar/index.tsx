@@ -36,6 +36,7 @@ export const SearchBar = () => {
           name='movieSearchInput'
           placeholder='Search for a movie'
           onChange={(e) => setSearchedMovieTitle(e.target.value)}
+          value={searchedMovieTitle || ''}
         />
         <button type='submit'>
           <FaSearch size={15} />

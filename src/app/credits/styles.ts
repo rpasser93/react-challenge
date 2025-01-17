@@ -8,5 +8,5 @@ export const Container = styled.div`
   align-items: center;
   gap: 30px;
   font-size: 16px;
-  padding: 0px 30px;
+  padding: 0px 30px 60px 30px;
 `;

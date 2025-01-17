@@ -6,19 +6,19 @@ import { SearchBar } from '../SearchBar';
 export const NavBar = () => {
   return (
     <Container>
-      <Link href={'/'} rel='preload'>
+      <Link href='/'>
         <NavItem>
           <Image
             src='/appLogo.png'
             width={150}
             height={40}
             style={{ borderRadius: '8px' }}
-            alt='MovieBuff HQ Logo'
+            alt='MovieBuffHQ Logo'
           />
         </NavItem>
       </Link>
       <SearchBar />
-      <Link href={'/credits'}>
+      <Link href='/credits'>
         <NavItem>Credits</NavItem>
       </Link>
     </Container>
